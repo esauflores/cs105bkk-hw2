@@ -2,7 +2,7 @@
 
 **Worth 10% of your grade.** HW2 covers Sessions 4 to 6. You will build the sign-up part of a student club's app: events with a limited number of seats, a waitlist for when an event is full, the club's own exceptions, and a small chat bot that answers members.
 
-**Released:** Tue 17 Nov. **Due:** Sun 22 Nov, 23:59.
+**Released:** Tue 17 Nov. **Due:** Tue 24 Nov, 23:59. You have one week.
 
 **Late work:** each day late costs 10% of the mark. You can hand in up to 3 days late; after that, HW2 is not accepted.
 
