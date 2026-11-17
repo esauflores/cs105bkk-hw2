@@ -36,18 +36,26 @@ class Club:
     def handle(self, line: str) -> str:
         """Answer one chat command, such as "join, Muay Thai basics, Nino", with one sentence."""
         parts = [part.strip() for part in line.split(",")]
-        if len(parts) != 3 or parts[0].lower() not in ("join", "leave"):
+        if len(parts) != 3 or "" in parts:
             return f"Sorry, I don't understand {line!r}."
+
         command, title, member = parts
+        command = command.lower()
+        if command not in ("join", "leave"):
+            return f"Sorry, I don't understand {line!r}."
+
         try:
             event = self.event(title)
-            if command.lower() == "join":
+
+            if command == "join":
                 if event.sign_up(member) == "seat":
                     return f"{member} has a seat at {title}."
                 return f"{member} is on the waitlist for {title}."
+
             moved_up = event.cancel(member)
         except SignupError as error:
             return f"Sorry, {error}."
+
         if moved_up is None:
             return f"{member} left {title}."
         return f"{member} left {title}. {moved_up} gets the seat."
