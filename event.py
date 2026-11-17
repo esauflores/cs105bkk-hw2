@@ -23,9 +23,11 @@ class Event:
         """Give the member a seat and return "seat", or add them to the waitlist and return "waitlist"."""
         if member in self.seats or member in self.waitlist:
             raise AlreadySignedUpError(member, self.title)
+
         if self.seats_left() > 0:
             self.seats.append(member)
             return "seat"
+
         self.waitlist.append(member)
         return "waitlist"
 
@@ -34,11 +36,14 @@ class Event:
         if member in self.waitlist:
             self.waitlist.remove(member)
             return None
+
         if member not in self.seats:
             raise NotSignedUpError(member, self.title)
+
         self.seats.remove(member)
         if not self.waitlist:
             return None
+
         moved_up = self.waitlist.pop(0)
         self.seats.append(moved_up)
         return moved_up
@@ -47,6 +52,7 @@ class Event:
         """0 for a member with a seat, or their number on the waitlist, counting from 1."""
         if member in self.seats:
             return 0
+
         try:
             return self.waitlist.index(member) + 1
         except ValueError:

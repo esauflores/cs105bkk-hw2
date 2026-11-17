@@ -20,8 +20,10 @@ class Club:
         """Make a new Event, store it under its title, and return it."""
         if capacity < 1:
             raise ValueError(f"capacity must be at least 1, got {capacity}")
+
         if title in self.events:
             raise ValueError(f"there is already an event called {title!r}")
+
         event = Event(title, capacity)
         self.events[title] = event
         return event
@@ -62,7 +64,12 @@ class Club:
 
     def attendance(self) -> dict[str, int]:
         """How many events each member has a seat at. The waitlist does not count."""
-        return dict(Counter(member for event in self.events.values() for member in event.seats))
+        counts = Counter()
+
+        for event in self.events.values():
+            counts.update(event.seats)
+
+        return dict(counts)
 
 
 if __name__ == "__main__":
