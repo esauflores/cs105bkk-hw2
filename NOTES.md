@@ -6,7 +6,7 @@ I went module by module: `errors.py` first (following the provided `NotSignedUpE
 
 ## What broke, and how did you fix it?
 
-`Event.place` first let the `ValueError` from `self.waitlist.index(member)` escape, so I caught it and raised `NotSignedUpError` instead, with `from None` so the traceback shows only the club's error. In `Club.handle` I had to be careful to catch only `SignupError`: a wider `except Exception` would have turned real bugs into "Sorry" messages, so a line that isn't a command is checked before the `try`.
+The visible tests passed, so the risk was in the hidden ones. In `Event.place`, `self.waitlist.index(member)` raises `ValueError` for a member who isn't waiting, so I catch it and raise `NotSignedUpError` instead, with `from None` so only the club's error shows. In `Club.handle` I catch only `SignupError`: a wider `except Exception` would turn real bugs into "Sorry" messages, so a line that isn't a command is checked before the `try`, not caught after it.
 
 ## What would you do differently next time?
 
